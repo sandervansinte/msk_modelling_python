@@ -194,20 +194,25 @@ pipeline.execute()
 
 ### Branching Workflows
 
-Create pipelines with multiple branches:
+Create pipelines with multiple branches where one node feeds into multiple:
 
 ```python
 pipeline = Pipeline("Branching Pipeline")
 
-# One node can feed into multiple nodes
+# One node can feed into multiple nodes (fan-out)
 pipeline.connect("Load", "Process_A")
 pipeline.connect("Load", "Process_B")
 pipeline.connect("Load", "Process_C")
+```
 
-# Multiple nodes can feed into one node
-pipeline.connect("Process_A", "Aggregate")
-pipeline.connect("Process_B", "Aggregate")
-pipeline.connect("Process_C", "Aggregate")
+**Note**: Currently, merging multiple branches into one node (fan-in) requires manual handling. Use sequential processing or ensure dependencies are properly ordered:
+
+```python
+# Workaround for merge nodes
+def process_all(data):
+    result_a = process_a(data)
+    result_b = process_b(data)
+    return {"result_a": result_a, "result_b": result_b, "merged": merge(result_a, result_b)}
 ```
 
 ### Context Management
