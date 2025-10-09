@@ -1,0 +1,4 @@
+Batch Processing Summary
+========================
+Total analyses: 6
+Completed: 6
