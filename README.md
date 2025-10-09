@@ -174,15 +174,44 @@ This package includes a combination of other packages and custom functions to ma
      Batch Opensim Processing Software  
      Package with functions and classes to use Opensim, CEINMS, stats, and others for easier processing.
 
-3. **ui**
+3. **workflow** ⭐ NEW!
+     Workflow Pipeline System inspired by [n8n](https://github.com/n8n-io/n8n)  
+     Create and execute automated processing pipelines with a simple, intuitive API.
+     
+     ```python
+     from msk_modelling_python.workflow import Pipeline, WorkflowNode
+     
+     # Create a pipeline
+     pipeline = Pipeline("OpenSim Analysis", "IK -> ID -> SO -> JRA")
+     
+     # Add nodes
+     ik_node = WorkflowNode("IK", run_ik_function, {"model": "path/to/model.osim"})
+     id_node = WorkflowNode("ID", run_id_function)
+     
+     pipeline.add_node(ik_node, is_start=True)
+     pipeline.add_node(id_node)
+     pipeline.connect("IK", "ID")
+     
+     # Execute
+     results = pipeline.execute()
+     ```
+     
+     See [WORKFLOW_README.md](msk_modelling_python/WORKFLOW_README.md) for detailed documentation.
+
+4. **ui**
      Functions to create user interface.
 
-4. **osim commands**
+5. **osim commands**
 ---
 
 ## Examples
 
 Find examples under ".\example_data\example_modules".
+
+**Workflow Examples**: See `example_data/workflow_example.py` for complete pipeline examples including:
+- OpenSim analysis pipelines (IK -> ID -> SO -> JRA)
+- Batch processing workflows
+- Data processing pipelines
 
 ---
 
